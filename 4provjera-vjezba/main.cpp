@@ -104,6 +104,50 @@ void brisanjerac(unsigned long long br_racuna[], string ime[], double saldo[], i
     }
 }
 
+int binarnopret(unsigned long long br_racuna[], int l, int r, unsigned long long x){
+    while(l<=r){
+        int m=l+(r-l)/2;
+        if(br_racuna[m]==x){
+            return m;
+        }
+        if(br_racuna[m]<x){
+            l=m+1;
+        }
+        else{
+            r=m-1;
+        }
+    }
+    return -1;
+}
+
+void izmrac(unsigned long long br_racuna[], string ime[], double saldo[], int korisnik){
+    unsigned long long dRac;
+    cout<<"Upisite br. racuna koji zelite promijeniti: ";
+    cin>>dRac;
+    if(binarnopret(br_racuna, 0, korisnik-1, dRac)>-1){
+        unsigned long long novira=br_racuna[binarnopret(br_racuna, 0, korisnik-1, dRac)];
+        back:
+        cout<<"Upisite novi broj racuna: ";
+        cin>>novira;
+        if(novira<1000000000 || novira>9999999999){
+            cout<<"Neispravan unos. Unesite ponovno";
+            getch();
+            system("cls");
+            goto back;
+        }
+        cout<<"Upisite prezime i ime: ";
+        cin.ignore();
+        getline(cin, ime[binarnopret(br_racuna, 0, korisnik-1, dRac)]);
+        cout<<"Upisite novo stanje na racunu: ";
+        cin>>saldo[binarnopret(br_racuna, 0, korisnik-1, dRac)];
+        cout<<"Racun uspjesno izmjenjen!"<<endl;
+        br_racuna[binarnopret(br_racuna, 0, korisnik-1, dRac)]=novira;
+    }
+    else if(binarnopret(br_racuna, 0, korisnik-1, dRac)<=-1){
+        cout<<"Takav racun ne postoji"<<endl;
+    }
+}
+
 int main()
 {
     int choice;
@@ -144,7 +188,8 @@ int main()
             getch();
         }
         else if(choice==5){
-
+            izmrac(br_racuna, ime, saldo, korisnik);
+            getch();
         }
         else if(choice==6){
 
