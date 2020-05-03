@@ -148,6 +148,37 @@ void izmrac(unsigned long long br_racuna[], string ime[], double saldo[], int ko
     }
 }
 
+void sortit(unsigned long long br_racuna[], string ime[], double saldo[], int korisnik){
+    unsigned long long *sortBrRac=new unsigned long long[1000];
+    string *sortIme=new string[1000];
+    double *sortStnr=new double[1000];
+    for(int i=0;i<korisnik;i++){
+        sortBrRac[i]=br_racuna[i];
+        sortIme[i]=ime[i];
+        sortStnr[i]=saldo[i];
+    }
+    for(int i=0;i<korisnik-1;i++){
+        for(int j=0;j<korisnik-1-i;j++){
+            if(ime[j]>ime[j+1]){
+                unsigned long long temp=sortBrRac[j];
+                sortBrRac[j]=sortBrRac[j+1];
+                sortBrRac[j+1]=temp;
+
+                string tomp=sortIme[j];
+                sortIme[j]=sortIme[j+1];
+                sortIme[j+1]=tomp;
+
+                double timp=sortStnr[j];
+                sortStnr[j]=sortStnr[j+1];
+                sortStnr[j+1]=timp;
+            }
+        }
+    }
+    for(int i=0;i<korisnik;i++){
+        cout<<"Broj racuna: "<<sortBrRac[i]<<endl<<"Ime i prezime: "<<sortIme[i]<<endl<<"Stanje na racunu: "<<sortStnr[i]<<endl<<endl;
+    }
+}
+
 int main()
 {
     int choice;
@@ -192,7 +223,8 @@ int main()
             getch();
         }
         else if(choice==6){
-
+            sortit(br_racuna, ime, saldo, korisnik);
+            getch();
         }
         else if(choice==7){
             system("cls");
