@@ -82,6 +82,28 @@ void imeprezime(unsigned long long br_racuna[], string ime[], double saldo[], in
     getch();
 }
 
+void brisanjerac(unsigned long long br_racuna[], string ime[], double saldo[], int korisnik, int &pr){
+    unsigned long long dRac;
+    cout<<"Upisite br. racuna koji zelite izbrisati: ";
+    cin>>dRac;
+    int z=0;
+    for(int i=0;i<korisnik;i++){
+        if(dRac==br_racuna[i]){
+            for(int j=i;j<korisnik-1;j++){
+                br_racuna[j]=br_racuna[j+1];
+                ime[j]=ime[j+1];
+                saldo[j]=saldo[j+1];
+            }
+            pr++;
+            z++;
+            cout<<"Racun uspjesno izbrisan"<<endl;
+        }
+        else if(z==0 && i==korisnik-1){
+            cout<<"Takav racun ne postoji"<<endl;
+        }
+    }
+}
+
 int main()
 {
     int choice;
@@ -116,7 +138,10 @@ int main()
             imeprezime(br_racuna, ime, saldo, korisnik);
         }
         else if(choice==4){
-
+            int pr=0;
+            brisanjerac(br_racuna, ime, saldo, korisnik, pr);
+            korisnik-=pr;
+            getch();
         }
         else if(choice==5){
 
