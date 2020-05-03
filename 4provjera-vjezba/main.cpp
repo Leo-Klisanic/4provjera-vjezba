@@ -64,6 +64,24 @@ void ispis_podataka(unsigned long long br_racuna[], string ime[], double saldo[]
     brTekucih=count_if(br_racuna, br_racuna+korisnik, tekuci);
 }
 
+void imeprezime(unsigned long long br_racuna[], string ime[], double saldo[], int korisnik){
+    cout<<"Upisite prezime i ime: ";
+    string pretraga;
+    cin.ignore();
+    getline(cin, pretraga);
+    int z=0;
+    for(int i=0;i<korisnik;i++){
+        if(pretraga==ime[i]){
+            cout<<"Broj racuna: "<<br_racuna[i]<<endl<<"Stanje na racunu: "<<saldo[i]<<endl<<endl;
+            z++;
+        }
+        else if(z==0 && i==korisnik-1){
+            cout<<"Takav racun ne postoji"<<endl;
+        }
+    }
+    getch();
+}
+
 int main()
 {
     int choice;
@@ -95,7 +113,7 @@ int main()
             getch();
         }
         else if(choice==3){
-
+            imeprezime(br_racuna, ime, saldo, korisnik);
         }
         else if(choice==4){
 
